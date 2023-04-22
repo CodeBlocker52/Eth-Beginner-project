@@ -18,44 +18,36 @@ Once you are on the Remix website, create a new file by clicking on the "+" icon
 ```solidity
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.18;
 
 contract MyToken {
-    string public name; // token name
-    string public symbol; // token abbreviation
-    uint256 public totalSupply; // total token supply
+    string public tokenName="Meta"; 
+    string public tokenAbbrv="MTA"; 
+    uint256 public totalSupply=0 ; 
+    
+    mapping(address => uint) public balances; 
 
-    mapping(address => uint256) public balanceOf; // balance of each account
-
-    event Mint(address indexed to, uint256 value);
-    event Burn(address indexed from, uint256 value);
-
-    constructor(string memory _name, string memory _symbol, uint256 _totalSupply) {
-        name = _name;
-        symbol = _symbol;
-        totalSupply = _totalSupply;
-        balanceOf[msg.sender] = _totalSupply;
-    }
-
-    function mint(address _to, uint256 _value) public {
+   
+    function mint(address _address, uint256 _value) public {
         totalSupply += _value;
-        balanceOf[_to] += _value;
-        emit Mint(_to, _value);
+        balances[_address] += _value;
+        
+    }
+      function burn(address _address, uint256 _value) public {
+        totalSupply -= _value;
+        balances[_address] -= _value;
+        
     }
 
-    function burn(address _from, uint256 _value) public {
-        require(balanceOf[_from] >= _value, "Insufficient balance");
-        totalSupply -= _value;
-        balanceOf[_from] -= _value;
-        emit Burn(_from, _value);
-    }
+
+   
 }
 
 ```
 
-To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.17" (or another compatible version), and then click on the "Compile TokenContract.sol" button.
+To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.18" (or another compatible version), and then click on the "Compile MyToken.sol" button.
 
-Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Select the "TokenContract" contract from the dropdown menu, and then click on the "Deploy" button.
+Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Select the "MyToken" contract from the dropdown menu, and then click on the "Deploy" button.
 Before Deploying ,you need to pass the value for name,symbol and total supply of tokens as mentioned in constructor.
 
 Once the contract is deployed, you can interact with it by calling the  function. 
