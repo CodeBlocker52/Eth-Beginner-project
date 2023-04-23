@@ -16,9 +16,11 @@ contract MyToken {
         
     }
       function burn(address _address, uint256 _value) public {
+      if(balances[_address]>=_value){
         totalSupply -= _value;
         balances[_address] -= _value;
         
+        }
     }
 
 
